@@ -46,55 +46,53 @@ if [[ $(command -v git) ]]; then
 fi
 
 # Check if ADDITIONAL_CONFIG=true do this
-if [[ ADDITIONAL_CONFIG == "true" ]]; then
-    if [[ $ADDITIONAL_CONFIG == "true" ]]; then
-        # Export
-        if [[ $(command -v mysql) ]]; then
-            export PATH=/usr/local/mysql/bin:$PATH
-        fi
-        if [[ $(command -v brew) ]]; then
-            export PATH=/opt/homebrew/bin:$PATH
-        fi
-        if [[ $(command -v java) ]]; then
-            export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
-        fi
-        if [[ -d "/opt/homebrew/opt/ruby/bin" ]]; then
-            export PATH=/opt/homebrew/opt/ruby/bin:$PATH
-            export PATH=$(gem environment gemdir)/bin:$PATH
-        fi
+if [[ $ADDITIONAL_CONFIG == "true" ]]; then
+    # Export
+    if [[ $(command -v mysql) ]]; then
+        export PATH=/usr/local/mysql/bin:$PATH
+    fi
+    if [[ $(command -v brew) ]]; then
+        export PATH=/opt/homebrew/bin:$PATH
+    fi
+    if [[ $(command -v java) ]]; then
+        export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+    fi
+    if [[ -d "/opt/homebrew/opt/ruby/bin" ]]; then
+        export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+        export PATH=$(gem environment gemdir)/bin:$PATH
+    fi
 
-        if [ -f "/Users/organ/.ghcup/env" ]; then
-            source "/Users/organ/.ghcup/env" # ghcup-env
-        fi
-        if [ -s "/Users/organ/.bun/_bun" ]; then
-            source "/Users/organ/.bun/_bun" # bun completions
-        fi
+    if [ -f "/Users/organ/.ghcup/env" ]; then
+        source "/Users/organ/.ghcup/env" # ghcup-env
+    fi
+    if [ -s "/Users/organ/.bun/_bun" ]; then
+        source "/Users/organ/.bun/_bun" # bun completions
+    fi
 
-        if [[ $(command -v bun) ]]; then
-            export BUN_INSTALL="$HOME/.bun"
-            export PATH="$BUN_INSTALL/bin:$PATH"
-        fi
+    if [[ $(command -v bun) ]]; then
+        export BUN_INSTALL="$HOME/.bun"
+        export PATH="$BUN_INSTALL/bin:$PATH"
+    fi
 
-        # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-        export PATH="$PATH:$HOME/.rvm/bin"
-        if [[ $(command -v ruby) ]]; then
-            export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-        fi
-        if [[ $(command -v curl) ]]; then
-            export PATH="/opt/homebrew/opt/curl/bin:$PATH"
-        fi
+    # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+    export PATH="$PATH:$HOME/.rvm/bin"
+    if [[ $(command -v ruby) ]]; then
+        export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+    fi
+    if [[ $(command -v curl) ]]; then
+        export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+    fi
 
-        # Python and pip config 
-        if [[ $(command -v python3) ]]; then
-            alias python="/opt/homebrew/bin/python3"
-            if [ -x "./bin/python3" ]; then
-                alias python3='./bin/python3'
-            fi
+    # Python and pip config 
+    if [[ $(command -v python3) ]]; then
+        alias python="/opt/homebrew/bin/python3"
+        if [ -x "./bin/python3" ]; then
+            alias python3='./bin/python3'
         fi
-        if [[ $(command -v pip3) ]]; then
-            if [ -x "./bin/pip3" ]; then
-                alias pip3='./bin/pip3'
-            fi
+    fi
+    if [[ $(command -v pip3) ]]; then
+        if [ -x "./bin/pip3" ]; then
+            alias pip3='./bin/pip3'
         fi
     fi
 fi
