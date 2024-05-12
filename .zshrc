@@ -1,63 +1,100 @@
+# ADDITIONAL_CONFIG="true" # uncomment the following line if you want to use additional configuration
+
 # Start things up
-eval "$(starship init zsh)"
-eval "$(zoxide init zsh)"
+if [[ $(command -v starship) ]]; then
+    eval "$(starship init zsh)"
+fi
+if [[ $(command -v zoxide) ]]; then
+    eval "$(zoxide init zsh)"
+fi
+
 
 # Shortcut
-alias c="code"
-alias vim="nvim"
-alias l="exa"
-alias ll="exa -a"
-alias lll="exa -al"
+if [[ $(command -v code) ]]; then
+    alias c="code"
+fi
+
+if [[ $(command -v nvim) ]]; then
+    alias vim="nvim"
+fi
+if [[ $(command -v exa) ]]; then
+    alias l="exa"
+    alias ll="exa -a"
+    alias lll="exa -al"
+fi
+if [[ $(command -v bat) ]]; then
+    alias cat="bat"
+    alias catp="bat -p"
+fi
 alias cls="clear"
-alias cat="bat"
-alias catp="bat -p"
 alias qq="exit"
-alias mtp="multipass"
+
+
 ## git 
-alias gi="git init"
-alias gl="git log"
-alias gsts="git status"
-alias gr="git remote -v"
-alias gra="git remote add"
-alias gch="git checkout"
-alias gpll="git pull"
-alias gpsh="git push"
-alias ga="git add"
-alias gc="git commit -m"
-alias gb="git branch"
-
-# Export
-export PATH=/usr/local/mysql/bin:$PATH
-export PATH=/opt/homebrew/bin:$PATH
-
-# Addional software & paths setup
-export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
-if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
-  export PATH=/opt/homebrew/opt/ruby/bin:$PATH
-  export PATH=`gem environment gemdir`/bin:$PATH
+if [[ $(command -v git) ]]; then
+    alias gi="git init"
+    alias gl="git log"
+    alias gsts="git status"
+    alias gr="git remote -v"
+    alias gra="git remote add"
+    alias gch="git checkout"
+    alias gpll="git pull"
+    alias gpsh="git push"
+    alias ga="git add"
+    alias gc="git commit -m"
+    alias gb="git branch"
 fi
 
-[ -f "/Users/organ/.ghcup/env" ] && source "/Users/organ/.ghcup/env" # ghcup-env
-# bun completions
-[ -s "/Users/organ/.bun/_bun" ] && source "/Users/organ/.bun/_bun"
+# Check if ADDITIONAL_CONFIG=true do this
+if [[ ADDITIONAL_CONFIG == "true" ]]; then
+    if [[ $ADDITIONAL_CONFIG == "true" ]]; then
+        # Export
+        if [[ $(command -v mysql) ]]; then
+            export PATH=/usr/local/mysql/bin:$PATH
+        fi
+        if [[ $(command -v brew) ]]; then
+            export PATH=/opt/homebrew/bin:$PATH
+        fi
+        if [[ $(command -v java) ]]; then
+            export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+        fi
+        if [[ -d "/opt/homebrew/opt/ruby/bin" ]]; then
+            export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+            export PATH=$(gem environment gemdir)/bin:$PATH
+        fi
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+        if [ -f "/Users/organ/.ghcup/env" ]; then
+            source "/Users/organ/.ghcup/env" # ghcup-env
+        fi
+        if [ -s "/Users/organ/.bun/_bun" ]; then
+            source "/Users/organ/.bun/_bun" # bun completions
+        fi
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+        if [[ $(command -v bun) ]]; then
+            export BUN_INSTALL="$HOME/.bun"
+            export PATH="$BUN_INSTALL/bin:$PATH"
+        fi
 
-# Python and pip config 
-alias python="/opt/homebrew/bin/python3"
-if [ -x "./bin/python3" ]; then
-    # If it exists, create an alias for python3
-    alias python3='./bin/python3'
+        # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+        export PATH="$PATH:$HOME/.rvm/bin"
+        if [[ $(command -v ruby) ]]; then
+            export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+        fi
+        if [[ $(command -v curl) ]]; then
+            export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+        fi
+
+        # Python and pip config 
+        if [[ $(command -v python3) ]]; then
+            alias python="/opt/homebrew/bin/python3"
+            if [ -x "./bin/python3" ]; then
+                alias python3='./bin/python3'
+            fi
+        fi
+        if [[ $(command -v pip3) ]]; then
+            if [ -x "./bin/pip3" ]; then
+                alias pip3='./bin/pip3'
+            fi
+        fi
+    fi
 fi
-if [ -x "./bin/pip3" ]; then
-    # If it exists, create an alias for pip
-    alias pip3='./bin/pip3'
-fi
-
