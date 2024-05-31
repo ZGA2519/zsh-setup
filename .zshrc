@@ -1,4 +1,4 @@
-# ADDITIONAL_CONFIG="true" # uncomment the following line if you want to use additional configuration
+# ADDITIONAL_CONFIG=true # uncomment the following line if you want to use additional configuration
 
 # Start things up
 if [[ $(command -v starship) ]]; then
@@ -46,7 +46,7 @@ if [[ $(command -v git) ]]; then
 fi
 
 # Check if ADDITIONAL_CONFIG=true do this
-if [[ $ADDITIONAL_CONFIG == "true" ]]; then
+if [[ $ADDITIONAL_CONFIG == true ]]; then
     # Export
     if [[ $(command -v mysql) ]]; then
         export PATH=/usr/local/mysql/bin:$PATH
