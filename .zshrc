@@ -1,6 +1,7 @@
 export HOMEBREW_NO_ENV_HINTS=true
 ADDITIONAL_CONFIG=true # uncomment the following line if you want to use additional configuration
 
+
 # Start things up
 if [[ $(command -v starship) ]]; then
     eval "$(starship init zsh)"
@@ -11,6 +12,9 @@ fi
 if [[ $(command -v neofetch) ]]; then
     neofetch
 fi
+
+# Greeting
+echo '\033[0;32mHello' $USER! ', welcome back!!!\033[0m'
 
 
 
@@ -122,5 +126,6 @@ if [[ $(command -v fzf) ]]; then
     SAVEHIST=10000
     setopt appendhistory
 
-    echo '\033[0;32muse \033[0;33mCOMMAND [DIRECTORY/][FUZZY_PATTERN]**<TAB>\033[0;32m for Fuzzy completion\033[0m'
+    echo '\033[0;32muse \033[0;33m`COMMAND [DIRECTORY/][FUZZY_PATTERN]**<TAB>`\033[0;32m for Fuzzy completion\033[0m'
+    
 fi
