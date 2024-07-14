@@ -1,4 +1,5 @@
-# ADDITIONAL_CONFIG=true # uncomment the following line if you want to use additional configuration
+export HOMEBREW_NO_ENV_HINTS=true
+ADDITIONAL_CONFIG=true # uncomment the following line if you want to use additional configuration
 
 # Start things up
 if [[ $(command -v starship) ]]; then
@@ -7,6 +8,10 @@ fi
 if [[ $(command -v zoxide) ]]; then
     eval "$(zoxide init zsh)"
 fi
+if [[ $(command -v neofetch) ]]; then
+    neofetch
+fi
+
 
 
 # Shortcut
@@ -95,4 +100,27 @@ if [[ $ADDITIONAL_CONFIG == true ]]; then
             alias pip3='./bin/pip3'
         fi
     fi
+fi
+
+# Auto completion ignore case
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+
+# Test
+export PATH="/usr/local/opt/bash/bin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# Integrate fzf with shell
+if [[ $(command -v fzf) ]]; then
+    source <(fzf --zsh)
+
+    # Make fuzyfind with history
+    HISTFILE=~/.zsh_history
+    HISTSIZE=10000
+    SAVEHIST=10000
+    setopt appendhistory
+
+    echo '\033[0;32muse \033[0;33mCOMMAND [DIRECTORY/][FUZZY_PATTERN]**<TAB>\033[0;32m for Fuzzy completion\033[0m'
 fi
