@@ -96,22 +96,22 @@ if [[ $ADDITIONAL_CONFIG == true ]]; then
     if command -v python3 &> /dev/null; then
         if [ -x "./bin/python3" ]; then
             alias python='./bin/python3'
-            echo "Setting python alias to ./bin/python3"
+            #echo "Setting python alias to ./bin/python3"
         else
             alias python="/opt/homebrew/bin/python3"
-            echo "Setting python alias to /opt/homebrew/bin/python3"
+            #echo "Setting python alias to /opt/homebrew/bin/python3"
         fi
     fi
     if command -v pip &> /dev/null; then
         if [ -x "./bin/pip3" ]; then
             alias pip='./bin/pip3'
-            echo "Setting pip alias to ./bin/pip3"
+            #echo "Setting pip alias to ./bin/pip3"
         elif [ -x "./bin/pip" ]; then
             alias pip='./bin/pip'
-            echo "Setting pip alias to ./bin/pip"
+            #echo "Setting pip alias to ./bin/pip"
         else
             alias pip="/opt/homebrew/bin/pip3"
-            echo "Setting pip alias to /opt/homebrew/bin/pip3"
+            #echo "Setting pip alias to /opt/homebrew/bin/pip3"
         fi
     fi
 else
