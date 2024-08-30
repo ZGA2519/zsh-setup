@@ -1,7 +1,9 @@
+stty -echo
+
 export HOMEBREW_NO_ENV_HINTS=true
 
 # Uncomment the following line if you want to use additional configuration
-ADDITIONAL_CONFIG = true
+ADDITIONAL_CONFIG=true
 
 # Start things up
 if command -v starship &> /dev/null; then
@@ -9,13 +11,14 @@ if command -v starship &> /dev/null; then
 fi
 if command -v zoxide &> /dev/null; then
     eval "$(zoxide init zsh)"
+    alias cd='z'
 fi
-if command -v neofetch &> /dev/null; then
-    neofetch
-fi
+# if command -v neofetch &> /dev/null; then
+#     neofetch
+# fi
 
 # Greeting
-echo '\033[0;32mHello' $USER! ', welcome back!!!' #\033[0m'
+echo '\033[0;32m\nHello' $USER! ', welcome back!!!' #\033[0m'
 
 # Shortcut
 if command -v code &> /dev/null; then
@@ -101,6 +104,7 @@ if [[ $ADDITIONAL_CONFIG == true ]]; then
             alias python="/opt/homebrew/bin/python3"
             #echo "Setting python alias to /opt/homebrew/bin/python3"
         fi
+        alias py='python'
     fi
     if command -v pip &> /dev/null; then
         if [ -x "./bin/pip3" ]; then
@@ -141,3 +145,5 @@ if command -v fzf &> /dev/null; then
 
     [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fi
+
+stty echo
