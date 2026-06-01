@@ -46,17 +46,26 @@ fi
 
 # git
 if command -v git &> /dev/null; then
-    alias gi="git init"
-    alias gl="git log"
-    alias gsts="git status"
-    alias gr="git remote -v"
-    alias gra="git remote add"
-    alias gch="git checkout"
-    alias gpll="git pull"
-    alias gpsh="git push"
-    alias ga="git add"
-    alias gc="git commit -m"
-    alias gb="git branch"
+    alias gs="git status"        # status
+    alias ga="git add"           # add
+    alias gc="git commit -m"     # commit
+    alias gco="git checkout"     # checkout
+    alias gb="git branch"        # branch
+    alias gl="git log"           # log
+    alias gd="git diff"          # diff
+
+    alias gpull="git pull"       # pull
+    alias gpush="git push"       # push
+
+    alias grem="git remote -v"   # list remotes
+    alias gremadd="git remote add"  # add remote
+
+    alias ginit="git init"       # init
+
+    # ss <branch>: stash -> switch branch -> stash pop
+    if ! git config --global --get alias.ss &> /dev/null; then
+        git config --global alias.ss '!f() { git stash push && git switch "$1" && git stash pop; }; f'
+    fi
 fi
 
 # ─── Completion ───────────────────────────────────────────────
