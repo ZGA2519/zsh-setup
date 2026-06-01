@@ -11,6 +11,11 @@ brew-install-all() {
     brew install --cask visual-studio-code
 }
 
+# brew i -> brew install
+if command -v brew &> /dev/null; then
+    brew alias i &> /dev/null || brew alias i=install
+fi
+
 # ─── Tool initialization ──────────────────────────────────────
 if command -v starship &> /dev/null; then
     eval "$(starship init zsh)"
